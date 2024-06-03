@@ -14,7 +14,13 @@ spec:
     spec:
       containers:
         - name: auth
-          image: us.gcr.io/tickets-dev-425020/auth
+          image: nyplex/tickets/auth
+          env: 
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 
 ---
 apiVersion: v1
