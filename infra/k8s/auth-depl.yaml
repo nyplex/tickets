@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: nyplex/tickets/auth
+          image: nyplex/tickets-auth
           env: 
             - name: JWT_KEY
               valueFrom:

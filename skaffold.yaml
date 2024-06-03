@@ -9,11 +9,19 @@ build:
   # googleCloudBuild:
   #   projectId: tickets-dev-425020
   artifacts: 
-    - image: nyplex/tickets/auth
+    - image: nyplex/tickets-auth
       context: auth
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: "src/**/*.ts"
+            dest: .
+    - image: nyplex/tickets-client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
             dest: .
