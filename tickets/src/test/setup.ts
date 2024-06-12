@@ -10,6 +10,8 @@ declare global {
   var signin: () => string[];
 }
 
+jest.mock("../nats-wrapper");
+
 beforeAll(async () => {
   process.env.JWT_KEY = "abcd";
   mongo = await MongoMemoryServer.create();
@@ -19,6 +21,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks();
   const collections = await mongoose.connection.db.collections();
 
   for (let collection of collections) {
@@ -37,7 +40,7 @@ global.signin = () => {
   // Build a JWT payload. { id, email }
   const payload = {
     id: new mongoose.Types.ObjectId().toHexString(),
-    email: "test@test.com"
+    email: "test@test.com",
   };
 
   // Create the JWT!
@@ -54,6 +57,4 @@ global.signin = () => {
 
   // return a string thats the cookie with the encoded data
   return [`session=${base64}`];
-  
-  
 };
